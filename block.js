@@ -16,10 +16,28 @@ class block{
         this.isButton = [];
     }
 
+    getCase(i){
+        return this.case[i];
+    }
+
     updateMap(map){
         for(let i = 0; i<4; i++){
             map.updateColor(this.case[i]);
         }
+    }
+
+    dropByStep(map){
+        for(let i = 0; i<4; i++){
+            if(this.isButton.indexOf(i)!=-1){
+                if(map.shellStopBlock(this.case[i])){
+                    return false;
+                }
+            }
+        }
+        for(let i = 0; i<4; i++){
+            this.case[i].dropGrid();
+        }
+        return true;
     }
 }
 
@@ -92,6 +110,7 @@ class T extends block{
         this.case[3] = new Grid(maxX/2,1);
         this.case[3].setColor(red);
         this.isButton.push(2);
+        this.isButton.push(3);
     }
 }
 
@@ -107,6 +126,7 @@ class rZ extends block{
             this.case[i] = new Grid(maxX/2-i+3,1);
             this.case[i].setColor(red);
         }
+        this.isButton.push(1);
         this.isButton.push(2);
         this.isButton.push(3);
     }
@@ -124,6 +144,7 @@ class lZ extends block{
             this.case[i] = new Grid(maxX/2-i+1,1);
             this.case[i].setColor(red);
         }
+        this.isButton.push(0);
         this.isButton.push(2);
         this.isButton.push(3);
     }

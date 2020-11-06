@@ -33,13 +33,20 @@ function drawByMap(map){
 }
 
 //应用函数，方便复用
+var shellDrop = true;
+var o = new lZ();
+var map = new ActiveMap(maxX,maxY);
 function onDraw(){
-    var map = new ActiveMap(maxX,maxY);
-    var o = new lZ();
+    if(!shellDrop){
+        o = new rZ();
+        shellDrop = true;
+    }
+    shellDrop = o.dropByStep(map);
     o.updateMap(map);
     drawByMap(map);
 }
 //直接应用
-onDraw();
+setInterval(onDraw,1000);
+
 
 

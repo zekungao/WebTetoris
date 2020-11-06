@@ -22,6 +22,9 @@ class Grid {
         this.x = nx;
         this.y = ny;
     }
+    dropGrid(){
+        this.y+=1;
+    }
 
     isSameColor(c){
         if(this.color == c){
@@ -46,6 +49,12 @@ class ActiveMap{
 
     updateColor(grid){
         this.map[grid.getX()][grid.getY()].setColor(grid.getColor());
+    }
+    clearBlock(block){
+        for(let i=0; i<4; i++){
+            var grid = block.getCase(i);
+            this.map[grid.getX()][grid.getY()].setColor(white);
+        }
     }
 
     clearBlockFromBottom(){
@@ -74,7 +83,10 @@ class ActiveMap{
     shellStopBlock(grid){
         var x = grid.getX();
         var y = grid.getY();
-        if(this.map[x+1][y+1].isSameColor(white)){
+        if(y == maxY-1){
+            return true;
+        }
+        if(this.map[x][y+1].isSameColor(white)){
             return false;
         }
         return true;
