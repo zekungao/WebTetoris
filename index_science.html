@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head lang = "en">
+        <meta charset="UTF-8">
+        <title>科学计算器</title>
+        <link rel="icon" type="image/x-icon" href="res/ic_launcher_round.png"/>
+        <link rel="stylesheet" type="text/css" href="css/mystyle.css"/>
+        <link rel="stylesheet" type="text/css" href="css/caculater.css"/>
+        <script type="text/javascript" src="res/science.js"></script>
+    </head>
+    <body>
+        <h1>科学计算器</h1>
+        <div class="navibar">
+            <ul>
+                <li><a href="index_normal.html">NORMAL</a></li>
+                <li><a href="index_science.html">SCIENCE</a></li>
+                <li><a href="index_function.html">FUNCTION</a></li>
+            </ul>
+        </div>
+        <div class="caculater">
+            <div class="result">
+                <ul>
+                    <p id="p0">0</p></br>
+                    <p id="p1">0</p>
+                </ul>
+            </div>
+            <ul>
+                <li><button onclick="input(7)">7</button></li>
+                <li><button onclick="input(8)">8</button></li>
+                <li><button onclick="input(9)">9</button></li>
+                <li><button onclick="getc('+')">+</button></li>
+                        </ul>
+                        <ul>
+                <li><button onclick="input(4)">4</button></li>
+                <li><button onclick="input(5)">5</button></li>
+                <li><button onclick="input(6)">6</button></li>
+                <li><button onclick="getc('-')">-</button></li>
+                        </ul>
+                        <ul>
+                <li><button onclick="input(1)">1</button></li>
+                <li><button onclick="input(2)">2</button></li>
+                <li><button onclick="input(3)">3</button></li>
+                <li><button onclick="getc('*')">*</button></li>
+                        </ul>
+                        <ul>
+                <li><button onclick="input(0)">0</button></li>
+                <li><button onclick="getc('(')">(</button></li>
+                <li><button onclick="getc(')')">)</button></li>
+                <li><button onclick="getc('/')">/</button></li>
+                        </ul>
+                <ul>
+                <li><button onclick="equal()">=</button></li>
+                <li><button onclick="deleteWord()">del</button></li>
+                <li><button onclick="clean()">C</button></li>
+                <li><button onclick="mPlus()">M</button></li>
+                        </ul>  
+        </div>
+    </body>
+</html>
