@@ -50,27 +50,23 @@ class ActiveMap{
     updateColor(grid){
         this.map[grid.getX()][grid.getY()].setColor(grid.getColor());
     }
-    clearBlock(block){
-        for(let i=0; i<4; i++){
-            var grid = block.getCase(i);
-            this.map[grid.getX()][grid.getY()].setColor(white);
-        }
+    clearBlock(grid){
+        this.map[grid.getX()][grid.getY()].setColor(white);
     }
-
-    clearBlockFromBottom(){
-        var allHas = true;
-        for(let i = 1; i<this.maxX; i++){
-            if(!this.map[i][this.maxY].isSameColor(white)){
-                same = false;
+/*
+    clearBlockFull(j){
+        let allHas = true;
+        for(let i = 0; i<this.maxX; i++){
+            if(!this.map[i][j].isSameColor(white)){
+                allHas = false;
                 break;
-            }
         }
-        if(same){
-            for(let i = this.maxY-1; i>=0; i--){
-                for(let j = 0; j<this.maxX; j++){
-                    var upColor = this.map[j][i];
-                    this.map[j][i+1].setColor(upColor);
-                }
+        if(allHas){
+            for(let m = j; m>0; m--){
+                for(let n = 0; n<this.maxX; n++){
+                    var upColor = this.map[n][m-1].getColor();
+                    this.map[n][m].setColor(upColor);
+                }    
             }
             for(let i = 0; i<this.maxX; i++){
                 this.map[i][0].setColor(white);
@@ -78,6 +74,36 @@ class ActiveMap{
             return true;
         }
         return false;
+    }
+    */
+    clearBlockFull(){
+        //先找到需要被消除的行，从上到下
+        var clearLine = [];
+        for(let j = 0; j<this.maxY; j++){
+            var allHas = true;
+            for(let i = 0; i<this.maxX; i++){
+                if(!this.map[i][j].isSameColor(white)){
+                    allHas = false;
+                    break;
+                }
+            }
+            if(allHas){
+                clearLine.push(j);
+            }
+        }
+        //把所有需要被消除的行消除，从上到下
+        
+        for(let index = 0; index<clearLine.length; index++){
+            for(let m = clearLine[index]; m>0; m--){
+                for(let n = 0; n<this.maxX; n++){
+                    var upColor = this.map[n][m-1].getColor();
+                    this.map[n][m].setColor(upColor);
+                }    
+            }
+            for(let i = 0; i<this.maxX; i++){
+                this.map[i][0].setColor(white);
+            }
+        }
     }
 
     shellStopBlock(grid){

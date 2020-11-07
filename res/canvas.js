@@ -32,20 +32,58 @@ function drawByMap(map){
     }
 }
 
-//应用函数，方便复用
+//创造新的方块
 var shellDrop = true;
-var o = new lZ();
+var o = randomBlock();
 var map = new ActiveMap(maxX,maxY);
+
+function randomBlock(){
+    let rdm = Math.round(Math.random()*10);
+    switch(rdm){
+        case 0:
+            return new I();
+        case 1:
+            return new O();
+        case 2:
+            return new rL();
+        case 3:
+            return new lL();
+        case 4:
+            return new T();
+        case 5:
+            return new rZ();
+        case 6:
+            return new lZ();
+        default:
+            return randomBlock();
+    }
+}
+
+function newBlock(){
+    o = randomBlock();
+    shellDrop = true;
+    o.updateMap(map);
+}
+
+
+//应用函数，方便复用
 function onDraw(){
     if(!shellDrop){
-        o = new rZ();
-        shellDrop = true;
+        //每次停止下落就需要检查并消除行
+        map.clearBlockFull();
+        newBlock();
     }
-    shellDrop = o.dropByStep(map);
-    o.updateMap(map);
+    else{
+        o.clearBlock(map);
+        shellDrop = o.dropByStep(map);
+        o.updateMap(map);
+    }
     drawByMap(map);
 }
+
 //直接应用
+newBlock();
+drawByMap(map);
 setInterval(onDraw,1000);
 
 

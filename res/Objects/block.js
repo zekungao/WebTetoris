@@ -14,15 +14,21 @@ class block{
             this.case[i] = new Grid(0,0);
         }
         this.isButton = [];
+        this.height = 0;
     }
-
-    getCase(i){
-        return this.case[i];
+    getHeight(){
+        return this.height;
     }
 
     updateMap(map){
         for(let i = 0; i<4; i++){
             map.updateColor(this.case[i]);
+        }
+    }
+
+    clearBlock(map){
+        for(let i = 0; i<4; i++){
+            map.clearBlock(this.case[i]);
         }
     }
 
@@ -45,6 +51,7 @@ class block{
 class I extends block{
     constructor(){
         super();
+        this.height = 4;
         for(let i = 0; i<4; i++){
             this.case[i] = new Grid(maxX/2-1,i);
             this.case[i].setColor(red);
@@ -57,6 +64,7 @@ class I extends block{
 class O extends block{
     constructor(){
         super();
+        this.height = 2;
         for(let i = 0; i<2; i++){
             this.case[i] = new Grid(maxX/2-i,0);
             this.case[i].setColor(red);
@@ -74,6 +82,7 @@ class O extends block{
 class rL extends block{
     constructor(){
         super();
+        this.height = 3;
         for(let i = 0; i<3; i++){
             this.case[i] = new Grid(maxX/2-1,i);
             this.case[i].setColor(red);
@@ -88,6 +97,7 @@ class rL extends block{
 class lL extends block{
     constructor(){
         super();
+        this.height = 3;
         for(let i = 0; i<3; i++){
             this.case[i] = new Grid(maxX/2,i);
             this.case[i].setColor(red);
@@ -103,6 +113,7 @@ class lL extends block{
 class T extends block{
     constructor(){
         super();
+        this.height = 3;
         for(let i = 0; i<3; i++){
             this.case[i] = new Grid(maxX/2-1,i);
             this.case[i].setColor(red);
@@ -118,6 +129,7 @@ class T extends block{
 class rZ extends block{
     constructor(){
         super();
+        this.height = 2;
         for(let i = 0; i<2; i++){
             this.case[i] = new Grid(maxX/2-i,0);
             this.case[i].setColor(red);
@@ -136,6 +148,7 @@ class rZ extends block{
 class lZ extends block{
     constructor(){
         super();
+        this.height = 2;
         for(let i = 0; i<2; i++){
             this.case[i] = new Grid(maxX/2-i,0);
             this.case[i].setColor(red);
