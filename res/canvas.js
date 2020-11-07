@@ -3,6 +3,7 @@
 //某些颜色变量在其他文件中已经被定义了
 const padding = 1;
 const sideLength = 25;
+const speed = 500;
 
 var c = document.getElementById("myCanvas");
 var pencil=c.getContext("2d");
@@ -48,7 +49,7 @@ function randomBlock(){
             return new rL();
         case 4:
             return new lL();
-        case 45:
+        case 5:
             return new T();
         case 6:
             return new rZ();
@@ -62,11 +63,24 @@ function randomBlock(){
 function newBlock(){
     o = randomBlock();
     shellDrop = true;
+    checkLoss();
     showMap();
 }
 function showMap(){
     o.updateMap(map);
     drawByMap(map);
+}
+
+//检查是否落败
+function checkLoss(){
+    //检查函数将被用在新建block的时候
+    //如果无法新建则认为失败
+    if(o.alreadyHas(map)){
+        map.clearAll();
+        alert("你输了");
+        window.clearInterval(timer);
+        o = new block();
+    }
 }
 
 //应用函数，方便复用
@@ -85,7 +99,7 @@ function onDraw(){
 
 //直接应用
 newBlock();
-setInterval(onDraw,1000);
+var timer = setInterval(onDraw,speed);
 
 ///////////////////////////////////////////////
 //按钮触发的函数
@@ -106,4 +120,19 @@ function toRight(){
 //这个会采用调用onDraw（）函数来实现
 function down(){
     onDraw();
+}
+
+//重新来过按钮
+function reset(){
+    map.clearAll()
+    drawByMap(map);
+    shellDrop = false;
+    timer = setInterval(onDraw,speed);
+}
+
+//旋转按钮
+function turnBlock(){
+    o.clearBlock(map);
+    o.turn(map);
+    showMap();
 }

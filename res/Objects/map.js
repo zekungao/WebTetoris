@@ -45,6 +45,10 @@ class ActiveMap{
         this.maxX = maxX;
         this.maxY = maxY;
         this.map = [];
+        this.clearAll();
+    }
+
+    clearAll(){
         for(let i = 0; i<maxX; i++){
             this.map[i] = [];
             for(let j = 0; j<maxY; j++){
@@ -127,4 +131,6 @@ class ActiveMap{
     findColorByIndex(x,y){
         return this.map[x][y].getColor();
     }
+
+    
 }
