@@ -1,6 +1,7 @@
 .caculater{
     display: table;
     margin:0 auto;
+    text-align: center;
 }
 .caculater ul{
     List-style-type:none;
