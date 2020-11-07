@@ -47,25 +47,31 @@ class block{
     }
     //下面是用于控制方块左右运动的函数
     //向左
-    toLeft(){
+    toLeft(map){
         for(let i = 0; i<4; i++){
-            if(this.case[i].getX()==0){
+            let thisX = this.case[i].getX();
+            if(thisX==0){
+                return;
+            }else if(map.findColorByIndex(thisX-1,this.case[i].getY())!=white){
                 return;
             }
         }
         for(let i = 0; i<4; i++){
-            var thisX = this.case[i].getX();
+            let thisX = this.case[i].getX();
             this.case[i].setX(thisX-1);
         }
     }
     toRight(){
         for(let i = 0; i<4; i++){
-            if(this.case[i].getX()==maxX-1){
+            let thisX = this.case[i].getX();
+            if(thisX==maxX-1){
+                return;
+            }else if(map.findColorByIndex(thisX+1,this.case[i].getY())!=white){
                 return;
             }
         }
         for(let i = 0; i<4; i++){
-            var thisX = this.case[i].getX();
+            let thisX = this.case[i].getX();
             this.case[i].setX(thisX+1);
         }
     }

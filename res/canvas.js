@@ -94,12 +94,12 @@ setInterval(onDraw,1000);
 //控制向左向右
 function toLeft(){
     o.clearBlock(map);
-    o.toLeft();
+    o.toLeft(map);
     showMap();
 }
 function toRight(){
     o.clearBlock(map);
-    o.toRight();
+    o.toRight(map);
     showMap();
 }
 //控制向下加速坠落一格
