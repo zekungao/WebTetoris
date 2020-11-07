@@ -18,9 +18,15 @@ class Grid {
     setColor(s){
         this.color = s;
     }
-    setXY(nx,ny){
+    setX(nx){
         this.x = nx;
+    }
+    setY(ny){
         this.y = ny;
+    }
+    setXY(nx,ny){
+        this.setX(nx);
+        this.setY(ny);
     }
     dropGrid(){
         this.y+=1;
@@ -82,7 +88,7 @@ class ActiveMap{
         for(let j = 0; j<this.maxY; j++){
             var allHas = true;
             for(let i = 0; i<this.maxX; i++){
-                if(!this.map[i][j].isSameColor(white)){
+                if(this.map[i][j].isSameColor(white)){
                     allHas = false;
                     break;
                 }

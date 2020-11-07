@@ -40,19 +40,19 @@ var map = new ActiveMap(maxX,maxY);
 function randomBlock(){
     let rdm = Math.round(Math.random()*10);
     switch(rdm){
-        case 0:
-            return new I();
         case 1:
-            return new O();
+            return new I();
         case 2:
-            return new rL();
+            return new O();
         case 3:
-            return new lL();
+            return new rL();
         case 4:
+            return new lL();
+        case 45:
             return new T();
-        case 5:
-            return new rZ();
         case 6:
+            return new rZ();
+        case 7:
             return new lZ();
         default:
             return randomBlock();
@@ -62,9 +62,12 @@ function randomBlock(){
 function newBlock(){
     o = randomBlock();
     shellDrop = true;
-    o.updateMap(map);
+    showMap();
 }
-
+function showMap(){
+    o.updateMap(map);
+    drawByMap(map);
+}
 
 //应用函数，方便复用
 function onDraw(){
@@ -76,15 +79,31 @@ function onDraw(){
     else{
         o.clearBlock(map);
         shellDrop = o.dropByStep(map);
-        o.updateMap(map);
+        showMap();
     }
-    drawByMap(map);
 }
 
 //直接应用
 newBlock();
-drawByMap(map);
 setInterval(onDraw,1000);
 
+///////////////////////////////////////////////
+//按钮触发的函数
+//主要包括控制方块向左，向右，以及快速下落
 
-
+//控制向左向右
+function toLeft(){
+    o.clearBlock(map);
+    o.toLeft();
+    showMap();
+}
+function toRight(){
+    o.clearBlock(map);
+    o.toRight();
+    showMap();
+}
+//控制向下加速坠落一格
+//这个会采用调用onDraw（）函数来实现
+function down(){
+    onDraw();
+}

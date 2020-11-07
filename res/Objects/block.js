@@ -45,6 +45,30 @@ class block{
         }
         return true;
     }
+    //下面是用于控制方块左右运动的函数
+    //向左
+    toLeft(){
+        for(let i = 0; i<4; i++){
+            if(this.case[i].getX()==0){
+                return;
+            }
+        }
+        for(let i = 0; i<4; i++){
+            var thisX = this.case[i].getX();
+            this.case[i].setX(thisX-1);
+        }
+    }
+    toRight(){
+        for(let i = 0; i<4; i++){
+            if(this.case[i].getX()==maxX-1){
+                return;
+            }
+        }
+        for(let i = 0; i<4; i++){
+            var thisX = this.case[i].getX();
+            this.case[i].setX(thisX+1);
+        }
+    }
 }
 
 //I型方块
