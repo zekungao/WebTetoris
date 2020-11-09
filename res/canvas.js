@@ -6,7 +6,8 @@
 //可以按照需求显示方块
 const padding = 1;
 const sideLength = 25;
-const speed = 500;
+const initSpeed = 1000;
+var speed = initSpeed;
 
 var c = document.getElementById("myCanvas");
 var pencil=c.getContext("2d");
@@ -127,12 +128,27 @@ function updataSideCanvas(){
     drawByMap(sidePencil,sideMap,side);
 }
 
+////////////根据分数改变下坠速度///////////////
+function changeSpeed(){
+    if(map.getScore>=400){
+        speed = initSpeed/4;
+    }else if(map.getScore>=300){
+        speed = initSpeed*2/5;
+    }else if(map.getScore>=200){
+        speed = initSpeed*3/5;
+    }else if(map.getScore>=100){
+        speed = initSpeed*4/5;
+    }
+}
+
 ////////////////////////应用//////////////////
 //应用函数，方便复用
 function onDraw(){
     if(!shellDrop){
         //每次停止下落就需要检查并消除行
         map.clearBlockFull();
+        document.getElementById("p0").innerHTML = "分数："+map.getScore();//刷新分数
+        changeSpeed();//检测并修改下落速度
         newBlock();
     }
     else{
@@ -173,6 +189,10 @@ function reset(){
     drawByMap(pencil,map,c);
     shellDrop = false;
     timer = setInterval(onDraw,speed);
+    //刷新分数
+    map.clearScore();
+    document.getElementById("p0").innerHTML = "分数："+map.getScore();
+    speed = initSpeed;//重置速度
 }
 
 //旋转按钮

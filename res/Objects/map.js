@@ -1,3 +1,4 @@
+//
 
 class Grid {
     constructor(x, y) {
@@ -46,6 +47,14 @@ class ActiveMap{
         this.maxY = maxY;
         this.map = [];
         this.clearAll();
+        this.score = 0;//分数
+    }
+
+    clearScore(){
+        this.score = 0;
+    }
+    getScore(){
+        return this.score;
     }
 
     clearAll(){
@@ -101,8 +110,8 @@ class ActiveMap{
                 clearLine.push(j);
             }
         }
+
         //把所有需要被消除的行消除，从上到下
-        
         for(let index = 0; index<clearLine.length; index++){
             for(let m = clearLine[index]; m>0; m--){
                 for(let n = 0; n<this.maxX; n++){
@@ -114,6 +123,17 @@ class ActiveMap{
                 this.map[i][0].setColor(white);
             }
         }
+
+        //之后根据消除的行数来加分
+        //一次性消除每一行10分，同时两行额外加10分，同时四行额外加40分
+        //目前没有增加t旋和万字旋的额外分数
+        this.score += 10*clearLine.length;
+        if(clearLine.length==2){
+            this.score += 10;
+        }else if(clearLine.length==4){
+            this.score += 40;
+        }
+        console.log(this.score);
     }
 
     shellStopBlock(grid){
