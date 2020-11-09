@@ -2,9 +2,13 @@
 
 const white = "#ffffff";
 const red = "#ff0000";
-const blue = "#0000ff";
-const green = "#00ff00";
+const blue = "#000fff";
+const green = "#00fff0";
 const black = "#000000";
+const purple = "#800088";
+const orange = "#ffa50f";
+const cyan = "#00ffff";
+const yellow = "#ffff08";
 const maxX = 10;
 const maxY = 20;
 
@@ -159,11 +163,11 @@ class O extends block{
         this.height = 2;
         for(let i = 0; i<2; i++){
             this.case[i] = new Grid(maxX/2-i,0);
-            this.case[i].setColor(red);
+            this.case[i].setColor(orange);
         }
         for(let i = 2; i<4; i++){
             this.case[i] = new Grid(maxX/2-i+2,1);
-            this.case[i].setColor(red);
+            this.case[i].setColor(orange);
         }
         this.isButton.push(2);
         this.isButton.push(3);
@@ -180,10 +184,10 @@ class rL extends block{
         this.height = 3;
         for(let i = 0; i<3; i++){
             this.case[i] = new Grid(maxX/2-1,i);
-            this.case[i].setColor(red);
+            this.case[i].setColor(yellow);
         }
         this.case[3] = new Grid(maxX/2,2);
-        this.case[3].setColor(red);
+        this.case[3].setColor(yellow);
         this.isButton.push(2);
         this.isButton.push(3);
     }
@@ -266,10 +270,10 @@ class lL extends block{
         this.height = 3;
         for(let i = 0; i<3; i++){
             this.case[i] = new Grid(maxX/2,i);
-            this.case[i].setColor(red);
+            this.case[i].setColor(green);
         }
         this.case[3] = new Grid(maxX/2-1,2);
-        this.case[3].setColor(red);
+        this.case[3].setColor(green);
         this.isButton.push(2);
         this.isButton.push(3);
     }
@@ -353,10 +357,10 @@ class T extends block{
         this.height = 3;
         for(let i = 0; i<3; i++){
             this.case[i] = new Grid(maxX/2-1,i);
-            this.case[i].setColor(red);
+            this.case[i].setColor(cyan);
         }
         this.case[3] = new Grid(maxX/2,1);
-        this.case[3].setColor(red);
+        this.case[3].setColor(cyan);
         this.isButton.push(2);
         this.isButton.push(3);
     }
@@ -431,11 +435,11 @@ class rZ extends block{
         this.height = 2;
         for(let i = 0; i<2; i++){
             this.case[i] = new Grid(maxX/2-i,0);
-            this.case[i].setColor(red);
+            this.case[i].setColor(blue);
         }
         for(let i = 2; i<4; i++){
             this.case[i] = new Grid(maxX/2-i+3,1);
-            this.case[i].setColor(red);
+            this.case[i].setColor(blue);
         }
         this.isButton.push(1);
         this.isButton.push(2);
@@ -496,11 +500,11 @@ class lZ extends block{
         this.height = 2;
         for(let i = 0; i<2; i++){
             this.case[i] = new Grid(maxX/2-i,0);
-            this.case[i].setColor(red);
+            this.case[i].setColor(purple);
         }
         for(let i = 2; i<4; i++){
             this.case[i] = new Grid(maxX/2-i+1,1);
-            this.case[i].setColor(red);
+            this.case[i].setColor(purple);
         }
         this.isButton.push(0);
         this.isButton.push(2);
