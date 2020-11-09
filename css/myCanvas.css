@@ -5,3 +5,7 @@
 .canvas canvas{
     background-color: white;
 }
+
+.score p{
+    color: azure;
+}

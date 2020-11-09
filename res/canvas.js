@@ -51,12 +51,19 @@ function drawByMap(pen,map,canvas){
 
 //创造新的方块
 var shellDrop = true;
+var thisBlcok = 0;
 var preBlock = randomBlock();//作为下一个被使用的方块
-var o = randomBlock();
+var o;
 var map = new ActiveMap(maxX,maxY);
 
-function randomBlock(){
-    let rdm = Math.round(Math.random()*10);
+function randomBlock(seed){
+    let rdm = 0;
+    if(seed==undefined){
+        rdm = Math.round(Math.random()*10);
+    }else{
+        rdm = seed;
+    }
+    thisBlock = rdm;
     switch(rdm){
         case 1:
             return new I();
@@ -78,7 +85,7 @@ function randomBlock(){
 }
 
 function newBlock(){
-    o = preBlock;
+    o = randomBlock(thisBlock);
     preBlock = randomBlock();
     shellDrop = true;
     checkLoss();
@@ -111,13 +118,12 @@ initPen(sidePencil);//初始化画笔
 var sideMap = new ActiveMap(4,4);//用来绘制的小map
 
 function updataSideCanvas(){
-    let sideBlock = preBlock;
     sideMap.clearAll();
     for(let i = 0; i<3; i++){
-        sideBlock.toLeft(sideMap);
+        preBlock.toLeft(sideMap);
     }
-    sideBlock.dropByStep(sideMap);
-    sideBlock.updateMap(sideMap);
+    preBlock.dropByStep(sideMap);
+    preBlock.updateMap(sideMap);
     drawByMap(sidePencil,sideMap,side);
 }
 
