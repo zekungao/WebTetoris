@@ -7,8 +7,15 @@ const speed = 500;
 
 var c = document.getElementById("myCanvas");
 var pencil=c.getContext("2d");
+pencil.shadowOffsetX = 1;
+pencil.shadowOffsetY = 1;
+pencil.shadowColor = black;
+pencil.shadowBlur = 3;
 
 function drawRec(x,y,color,sizeX,sizeY){
+    if(color == white){
+        return;
+    }
     pencil.fillStyle=color;
     pencil.fillRect(x,y,sizeX,sizeY);
 }
@@ -26,6 +33,7 @@ function drawSuqareWithIndex(indexX,indexY,color){
 }
 
 function drawByMap(map){
+    pencil.clearRect(0,0,c.width,c.height);
     for(let i = 0; i<maxX; i++){
         for(let j = 0; j<maxY; j++){
             drawSuqareWithIndex(i,j,map.findColorByIndex(i,j));
@@ -135,4 +143,14 @@ function turnBlock(){
     o.clearBlock(map);
     o.turn(map);
     showMap();
+}
+
+//直接落地按钮
+//实现方法是直接循环drawByStep函数直到触底
+function downToButton(){
+    while(shellDrop){
+        o.clearBlock(map);
+        shellDrop = o.dropByStep(map);
+    }
+    showMap();//最后要刷新界面
 }

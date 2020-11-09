@@ -4,6 +4,7 @@ const white = "#ffffff";
 const red = "#ff0000";
 const blue = "#0000ff";
 const green = "#00ff00";
+const black = "#000000";
 const maxX = 10;
 const maxY = 20;
 
