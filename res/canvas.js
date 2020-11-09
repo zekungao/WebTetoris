@@ -1,48 +1,57 @@
 
 //注意，非函数内容必须要在定义了myCanvas之后载入才会生效
 //某些颜色变量在其他文件中已经被定义了
+///////////////////绘图用函数/////////////////
+//这部分函数相当于游戏引擎
+//可以按照需求显示方块
 const padding = 1;
 const sideLength = 25;
 const speed = 500;
 
 var c = document.getElementById("myCanvas");
 var pencil=c.getContext("2d");
-pencil.shadowOffsetX = 1;
-pencil.shadowOffsetY = 1;
-pencil.shadowColor = black;
-pencil.shadowBlur = 3;
 
-function drawRec(x,y,color,sizeX,sizeY){
+//初始化画笔
+function initPen(pen){
+    pen.shadowOffsetX = 1;
+    pen.shadowOffsetY = 1;
+    pen.shadowColor = black;
+    pen.shadowBlur = 3;
+}
+initPen(pencil);
+
+function drawRec(pen,x,y,color,sizeX,sizeY){
     if(color == white){
         return;
     }
-    pencil.fillStyle=color;
-    pencil.fillRect(x,y,sizeX,sizeY);
+    pen.fillStyle=color;
+    pen.fillRect(x,y,sizeX,sizeY);
 }
 
-function drawSquare(x,y,color,a){
-    drawRec(x,y,color,a,a);
+function drawSquare(pen,x,y,color,a){
+    drawRec(pen,x,y,color,a,a);
 }
 
-function drawSuqareWithIndex(indexX,indexY,color){
+function drawSuqareWithIndex(pen,indexX,indexY,color){
     var x = indexX*(sideLength+padding*2);
     var y = indexY*(sideLength+padding*2);
     x += padding;
     y += padding;
-    drawSquare(x,y,color,sideLength);
+    drawSquare(pen,x,y,color,sideLength);
 }
 
-function drawByMap(map){
-    pencil.clearRect(0,0,c.width,c.height);
+function drawByMap(pen,map,canvas){
+    pen.clearRect(0,0,canvas.width,canvas.height);
     for(let i = 0; i<maxX; i++){
         for(let j = 0; j<maxY; j++){
-            drawSuqareWithIndex(i,j,map.findColorByIndex(i,j));
+            drawSuqareWithIndex(pen,i,j,map.findColorByIndex(i,j));
         }
     }
 }
 
 //创造新的方块
 var shellDrop = true;
+var preBlock = randomBlock();//作为下一个被使用的方块
 var o = randomBlock();
 var map = new ActiveMap(maxX,maxY);
 
@@ -69,14 +78,16 @@ function randomBlock(){
 }
 
 function newBlock(){
-    o = randomBlock();
+    o = preBlock;
+    preBlock = randomBlock();
     shellDrop = true;
     checkLoss();
     showMap();
+    updataSideCanvas()
 }
 function showMap(){
     o.updateMap(map);
-    drawByMap(map);
+    drawByMap(pencil,map,c);
 }
 
 //检查是否落败
@@ -91,6 +102,26 @@ function checkLoss(){
     }
 }
 
+/////////////////另一个小的canvas界面//////////
+//这个界面用来提前显示下一个会出现的方块
+//初始化
+var side = document.getElementById("sideCanvas");
+var sidePencil=side.getContext("2d");
+initPen(sidePencil);//初始化画笔
+var sideMap = new ActiveMap(4,4);//用来绘制的小map
+
+function updataSideCanvas(){
+    let sideBlock = preBlock;
+    sideMap.clearAll();
+    for(let i = 0; i<3; i++){
+        sideBlock.toLeft(sideMap);
+    }
+    sideBlock.dropByStep(sideMap);
+    sideBlock.updateMap(sideMap);
+    drawByMap(sidePencil,sideMap,side);
+}
+
+////////////////////////应用//////////////////
 //应用函数，方便复用
 function onDraw(){
     if(!shellDrop){
@@ -133,7 +164,7 @@ function down(){
 //重新来过按钮
 function reset(){
     map.clearAll()
-    drawByMap(map);
+    drawByMap(pencil,map,c);
     shellDrop = false;
     timer = setInterval(onDraw,speed);
 }
