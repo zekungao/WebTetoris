@@ -116,7 +116,7 @@ function newBlock(){
     //刷新渲染结果
     showMap();
     //更新小画面图像
-    updataSideCanvas()
+    updateSideCanvas()
 }
 //更新主画面渲染结果
 function showMap(){
@@ -147,7 +147,7 @@ initPen(sidePencil);//初始化画笔
 var sideMap = new ActiveMap(4,4);//用来绘制的小map
 
 //更新小画面的结果
-function updataSideCanvas(){
+function updateSideCanvas(){
     sideMap.clearAll();
     //由于方块对象初始坐标适配的是大地图
     //这里需要对他进行横向位移
