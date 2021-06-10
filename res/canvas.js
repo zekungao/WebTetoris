@@ -44,7 +44,7 @@ function drawSquare(pen, x, y, color, a) {
 }
 
 //根据预定义的边长和间距，根据在画布中的坐标位置，在相应位置画一个纯色正方形
-function drawSuqareWithIndex(pen, indexX, indexY, color) {
+function drawSquareWithIndex(pen, indexX, indexY, color) {
     var x = indexX * (sideLength + padding * 2);
     var y = indexY * (sideLength + padding * 2);
     x += padding;
@@ -57,7 +57,7 @@ function drawByMap(pen, map, canvas) {
     pen.clearRect(0, 0, canvas.width, canvas.height);
     for (let i = 0; i < maxX; i++) {
         for (let j = 0; j < maxY; j++) {
-            drawSuqareWithIndex(pen, i, j, map.findColorByIndex(i, j));
+            drawSquareWithIndex(pen, i, j, map.findColorByIndex(i, j));
         }
     }
 }
