@@ -16,9 +16,9 @@ const DOWN = 40;
 
 document.onkeydown = keyDown;
 
-function keyDown(e){
-    var e = e||window.event;
-    switch(e.keyCode){
+function keyDown(e) {
+    var e = e || window.event;
+    switch (e.keyCode) {
         case SPACE:
             downToButton();
             break;

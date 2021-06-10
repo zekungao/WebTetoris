@@ -13,10 +13,10 @@ var speed = initSpeed;//实际应用的速度值，会发生变化
 
 //载入canvas对象，这个对象承载主要游戏画面
 var c = document.getElementById("myCanvas");
-var pencil=c.getContext("2d");//载入对应的画笔
+var pencil = c.getContext("2d");//载入对应的画笔
 
 //初始化画笔
-function initPen(pen){
+function initPen(pen) {
     //这个初始化是全局特效
     //目前只设定了阴影
     //也可以设定内发光等效果
@@ -29,35 +29,35 @@ function initPen(pen){
 initPen(pencil);
 
 //根据尺寸和起始位置绘制一个纯色矩形
-function drawRec(pen,x,y,color,sizeX,sizeY){
-    if(color == white){
+function drawRec(pen, x, y, color, sizeX, sizeY) {
+    if (color == white) {
         //如果颜色是白色则表示空白，不进行绘画
         return;
     }
-    pen.fillStyle=color;
-    pen.fillRect(x,y,sizeX,sizeY);
+    pen.fillStyle = color;
+    pen.fillRect(x, y, sizeX, sizeY);
 }
 
 //绘制一个纯色正方形
-function drawSquare(pen,x,y,color,a){
-    drawRec(pen,x,y,color,a,a);
+function drawSquare(pen, x, y, color, a) {
+    drawRec(pen, x, y, color, a, a);
 }
 
 //根据预定义的边长和间距，根据在画布中的坐标位置，在相应位置画一个纯色正方形
-function drawSuqareWithIndex(pen,indexX,indexY,color){
-    var x = indexX*(sideLength+padding*2);
-    var y = indexY*(sideLength+padding*2);
+function drawSuqareWithIndex(pen, indexX, indexY, color) {
+    var x = indexX * (sideLength + padding * 2);
+    var y = indexY * (sideLength + padding * 2);
     x += padding;
     y += padding;
-    drawSquare(pen,x,y,color,sideLength);
+    drawSquare(pen, x, y, color, sideLength);
 }
 
 //根据图谱对象（map）记录的信息画出整个游戏画面
-function drawByMap(pen,map,canvas){
-    pen.clearRect(0,0,canvas.width,canvas.height);
-    for(let i = 0; i<maxX; i++){
-        for(let j = 0; j<maxY; j++){
-            drawSuqareWithIndex(pen,i,j,map.findColorByIndex(i,j));
+function drawByMap(pen, map, canvas) {
+    pen.clearRect(0, 0, canvas.width, canvas.height);
+    for (let i = 0; i < maxX; i++) {
+        for (let j = 0; j < maxY; j++) {
+            drawSuqareWithIndex(pen, i, j, map.findColorByIndex(i, j));
         }
     }
 }
@@ -67,23 +67,23 @@ var shellDrop = true;
 var thisBlcok = 0;//用来表示下一个方块的类型
 var preBlock = randomBlock();//作为下一个被使用的方块
 var o;//主画面中的方块
-var map = new ActiveMap(maxX,maxY);//主要图谱
+var map = new ActiveMap(maxX, maxY);//主要图谱
 
 //生成一个随机方块
-function randomBlock(seed){
+function randomBlock(seed) {
     //参数seed可以省缺
     //如果省缺则利用随即数表均匀概率随机生成方块
     //如果包含输入值，则直接生成要求的方块
     //*注：因为jvm指针的特性，导致如果preBlock不论如何赋值给其他对象来保护他，他的数值依旧会被影响
     //      所以只能让o新建对象
     let rdm = 0;
-    if(seed==undefined){
-        rdm = Math.round(Math.random()*10);
-    }else{
+    if (seed == undefined) {
+        rdm = Math.round(Math.random() * 10);
+    } else {
         rdm = seed;
     }
     thisBlock = rdm;
-    switch(rdm){
+    switch (rdm) {
         case 1:
             return new I();
         case 2:
@@ -104,7 +104,7 @@ function randomBlock(seed){
 }
 
 //按照流程执行创建对象的内容
-function newBlock(){
+function newBlock() {
     //继承下一个对象信息
     o = randomBlock(thisBlock);
     //生成一个新的对象
@@ -119,18 +119,18 @@ function newBlock(){
     updateSideCanvas()
 }
 //更新主画面渲染结果
-function showMap(){
+function showMap() {
     //更新map信息
     o.updateMap(map);
     //绘制
-    drawByMap(pencil,map,c);
+    drawByMap(pencil, map, c);
 }
 
 //检查是否落败
-function checkLoss(){
+function checkLoss() {
     //检查函数将被用在新建block的时候
     //如果无法新建则认为失败
-    if(o.alreadyHas(map)){
+    if (o.alreadyHas(map)) {
         map.clearAll();
         alert("你输了");
         window.clearInterval(timer);
@@ -142,16 +142,16 @@ function checkLoss(){
 //这个界面用来提前显示下一个会出现的方块
 //初始化
 var side = document.getElementById("sideCanvas");
-var sidePencil=side.getContext("2d");
+var sidePencil = side.getContext("2d");
 initPen(sidePencil);//初始化画笔
-var sideMap = new ActiveMap(4,4);//用来绘制的小map
+var sideMap = new ActiveMap(4, 4);//用来绘制的小map
 
 //更新小画面的结果
-function updateSideCanvas(){
+function updateSideCanvas() {
     sideMap.clearAll();
     //由于方块对象初始坐标适配的是大地图
     //这里需要对他进行横向位移
-    for(let i = 0; i<(maxX/2+1)/2; i++){
+    for (let i = 0; i < (maxX / 2 + 1) / 2; i++) {
         preBlock.toLeft(sideMap);
     }
     //为了美观下落一次
@@ -159,33 +159,33 @@ function updateSideCanvas(){
     //这里刷新的是小地图图谱对象
     preBlock.updateMap(sideMap);
     //使用小地图画笔进行绘制
-    drawByMap(sidePencil,sideMap,side);
+    drawByMap(sidePencil, sideMap, side);
 }
 
 ////////////根据分数改变下坠速度///////////////
-function changeSpeed(){
-    if(map.getScore>=400){
-        speed = initSpeed/4;
-    }else if(map.getScore>=300){
-        speed = initSpeed*2/5;
-    }else if(map.getScore>=200){
-        speed = initSpeed*3/5;
-    }else if(map.getScore>=100){
-        speed = initSpeed*4/5;
+function changeSpeed() {
+    if (map.getScore >= 400) {
+        speed = initSpeed / 4;
+    } else if (map.getScore >= 300) {
+        speed = initSpeed * 2 / 5;
+    } else if (map.getScore >= 200) {
+        speed = initSpeed * 3 / 5;
+    } else if (map.getScore >= 100) {
+        speed = initSpeed * 4 / 5;
     }
 }
 
 ////////////////////////应用//////////////////
 //应用函数，方便复用
-function onDraw(){
-    if(!shellDrop){
+function onDraw() {
+    if (!shellDrop) {
         //每次停止下落就需要检查并消除行
         map.clearBlockFull();
-        document.getElementById("p0").innerHTML = "分数："+map.getScore();//刷新分数
+        document.getElementById("p0").innerHTML = "分数：" + map.getScore();//刷新分数
         changeSpeed();//检测并修改下落速度
         newBlock();
     }
-    else{
+    else {
         o.clearBlock(map);
         shellDrop = o.dropByStep(map);
         showMap();
@@ -194,7 +194,7 @@ function onDraw(){
 
 //直接应用
 newBlock();
-var timer = setInterval(onDraw,speed);
+var timer = setInterval(onDraw, speed);
 
 ///////////////////////////////////////////////
 //按钮触发的函数
@@ -203,16 +203,16 @@ var timer = setInterval(onDraw,speed);
 //控制向左向右
 //加一个判断用来优化手感，
 //当确定落底之后直到下一个方块刷新都不能左右运动
-function toLeft(){
-    if(!shellDrop){
+function toLeft() {
+    if (!shellDrop) {
         return;
     }
     o.clearBlock(map);
     o.toLeft(map);
     showMap();
 }
-function toRight(){
-    if(!shellDrop){
+function toRight() {
+    if (!shellDrop) {
         return;
     }
     o.clearBlock(map);
@@ -221,24 +221,24 @@ function toRight(){
 }
 //控制向下加速坠落一格
 //这个会采用调用onDraw（）函数来实现
-function down(){
+function down() {
     onDraw();
 }
 
 //重新来过按钮
-function reset(){
+function reset() {
     map.clearAll()
-    drawByMap(pencil,map,c);
+    drawByMap(pencil, map, c);
     shellDrop = false;
-    timer = setInterval(onDraw,speed);
+    timer = setInterval(onDraw, speed);
     //刷新分数
     map.clearScore();
-    document.getElementById("p0").innerHTML = "分数："+map.getScore();
+    document.getElementById("p0").innerHTML = "分数：" + map.getScore();
     speed = initSpeed;//重置速度
 }
 
 //旋转按钮
-function turnBlock(){
+function turnBlock() {
     o.clearBlock(map);
     o.turn(map);
     showMap();
@@ -246,8 +246,8 @@ function turnBlock(){
 
 //直接落地按钮
 //实现方法是直接循环drawByStep函数直到触底
-function downToButton(){
-    while(shellDrop){
+function downToButton() {
+    while (shellDrop) {
         o.clearBlock(map);
         shellDrop = o.dropByStep(map);
     }

@@ -1,27 +1,29 @@
 <!DOCTYPE html>
 <html>
-    <head lang = "en">
-        <meta charset="UTF-8">
-        <title>俄罗斯方块</title>
-        <link rel="icon" type="image/x-icon" href="res/ic_launcher_round.png"/>
-        <link rel="stylesheet" type="text/css" href="css/mystyle.css"/>
-        <link rel="stylesheet" type="text/css" href="css/caculater.css"/>
-        <link rel="stylesheet" type="text/css" href="css/myCanvas.css"/>
-        <script type="text/javascript" src="res/Objects/block.js"></script>
-        <script type="text/javascript" src="res/Objects/map.js"></script>
-    </head>
-    <body>
-        <div class="canvas">
-            <canvas id="myCanvas" width="270" height="540"></canvas>
-            <canvas id="sideCanvas" width="108" height="162"></canvas>
-            <script type="text/javascript" src="res/canvas.js"></script>
-            <script type="text/javascript" src="res/hotkeyController.js"></script>
-        </div>
-        <div class="score">
-            <P id="p0">分数：0</P>
-        </div>
-        <div class="caculater">
-            <!--
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>俄罗斯方块</title>
+    <link rel="icon" type="image/x-icon" href="res/ic_launcher_round.png" />
+    <link rel="stylesheet" type="text/css" href="css/mystyle.css" />
+    <link rel="stylesheet" type="text/css" href="css/caculater.css" />
+    <link rel="stylesheet" type="text/css" href="css/myCanvas.css" />
+    <script type="text/javascript" src="res/Objects/block.js"></script>
+    <script type="text/javascript" src="res/Objects/map.js"></script>
+</head>
+
+<body>
+    <div class="canvas">
+        <canvas id="myCanvas" width="270" height="540"></canvas>
+        <canvas id="sideCanvas" width="108" height="162"></canvas>
+        <script type="text/javascript" src="res/canvas.js"></script>
+        <script type="text/javascript" src="res/hotkeyController.js"></script>
+    </div>
+    <div class="score">
+        <P id="p0">分数：0</P>
+    </div>
+    <div class="caculater">
+        <!--
             <ul>
                 <li><button onclick="toLeft()">向左</button></li>
                 <li><button onclick="turnBlock()">旋转</button></li>
@@ -33,6 +35,7 @@
                 <li><button onclick="down()">向下</button></li>
                 <li><button onclick="downToButton()">到底</button></li>
             </ul>-->
-        </div>
-    </body>
+    </div>
+</body>
+
 </html>
